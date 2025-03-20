@@ -68,6 +68,11 @@ class MainController extends CI_Controller {
 		$data['all_tools'] = $this->main->getAllTools();
 		$data['isMobile']  = $this->agent->is_mobile() ? TRUE : FALSE;
 		$data['all_borrowed'] = $this->main->getAllBorrowedTools();
+		$data['tools_count'] =  $this->main->getToolCount();
+		$data['top_five'] = $this->main->getTopFive();
+		$data['groups']   = $this->main->getGroups();
+		// var_dump('<pre>',$data['groups']);die;
+		// var_dump($data['tools_count']);die;
 		// var_dump('<pre>',$data['all_borrowed']);die;
 		// var_dump($data['isMobile']);die;
 		// var_dump('<pre>',$data['all_tools']);die;
@@ -93,8 +98,22 @@ class MainController extends CI_Controller {
 
 	public function returnTool() {
 
-		// if(isse)
+		$result = $this->main->returnTools($_POST['request_id'],$_POST['barCode'],$_POST['toolid']);
+
+		echo json_encode($result);
 	}
+	public function approvedTool(){
+		$result = $this->main->approveTools($_POST['request_id'],$_POST['barCode'],$_POST['toolid']);
+		echo json_encode($result);
+	}
+
+	public function approvedReturn(){
+		$result = $this->main->approvedReturns($_POST['request_id'],$_POST['barCode'],$_POST['toolid']);
+
+
+		echo json_encode($result);
+	}
+	
 
 	public function logout(){
 		session_destroy();

@@ -50,11 +50,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |		my-controller/my-method	-> my_controller/my_method
 */
 $route['default_controller'] = 'MainController';
-$route['auth-user'] = 'MainController/authUser';
-$route['main-view'] = 'MainController/mainView';
-$route['borrow-tool'] = 'MainController/borrowTool';
-$route['return-tool'] = 'MainController/returnTool';
-$route['logout'] = 'MainController/logout';
+$route['auth-user']         = 'MainController/authUser';
+$route['main-view']         = 'MainController/mainView';
+$route['borrow-tool']       = 'MainController/borrowTool';
+$route['return-tool']       = 'MainController/returnTool';
+$route['approved-tool']     = 'MainController/approvedTool';
+$route['approved-return']   = 'MainController/approvedReturn';
+$route['logout']            = 'MainController/logout';
 
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

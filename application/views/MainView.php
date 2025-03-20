@@ -135,8 +135,8 @@
           <?php if ($this->session->userdata('role') == 1): ?>
             <a href="#" class="list-group-item list-group-item-action py-2" data-content="tool-registration" data-mdb-ripple-init><i
                 class="fas fa-plus fa-fw me-3"></i><span>Tool Registration</span></a>
-            <a href="#" class="list-group-item list-group-item-action py-2" data-content="tool-approval" data-mdb-ripple-init><i
-                class="fas fa-checklist fa-fw me-3"></i><span>Tool Approval</span></a>
+            <!-- <a href="#" class="list-group-item list-group-item-action py-2" data-content="tool-approval" data-mdb-ripple-init><i
+                class="fas fa-checklist fa-fw me-3"></i><span>Tool Approval</span></a> -->
           <?php endif; ?>
         </div>
       </div>
@@ -182,7 +182,8 @@
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle hidden-arrow d-flex align-items-center" href="#"
               id="navbarDropdownMenuLink" role="button" data-mdb-dropdown-init aria-expanded="false">
-              <img src="https://mdbootstrap.com/img/Photos/Avatars/img (31).jpg" class="rounded-circle" height="22"
+              <?= $_SESSION['username'] ?> | 
+              <img src="<?= base_url() ?>assets/tool_image/default.png" class="rounded-circle" height="22"
                 alt="" loading="lazy" />
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
@@ -203,6 +204,7 @@
   <main style="margin-top: 58px">
     <div class="container pt-4">
       <section id="dashboard" class="content-display">
+        <h5>All Tools Availability</h5>
         <div class="row">
           <div class="col-xl-3 col-sm-6 col-12 mb-4">
             <div class="card">
@@ -263,7 +265,7 @@
               <div class="card-body">
                 <div class="d-flex justify-content-between px-md-1">
                   <div>
-                    <h3 class="text-danger">3</h3>
+                    <h3 class="text-danger">0</h3>
                     <p class="mb-0">Loss tools</p>
                   </div>
                   <div class="align-self-center">
@@ -273,6 +275,131 @@
               </div>
             </div>
           </div>
+        </div>
+
+        <h5>Tool Category</h5>
+        <div class="row">
+          <div class="col-xl-3 col-sm-6 col-12 mb-4">
+            <div class="card">
+              <div class="card-body">
+                <div class="d-flex justify-content-between px-md-1">
+                  <div>
+                    <h3 class="text-info">
+                      <?= count(array_filter(array_map(function ($tool) {
+                        return $tool->CategoryId == 1 ? 1 : 0;
+                      }, $all_tools))) ?>
+                    </h3>
+                    <p class="mb-0">Handy tools</p>
+                  </div>
+                  <div class="align-self-center">
+                    <i class="fas fa-hand text-info fa-3x"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xl-3 col-sm-6 col-12 mb-4">
+            <div class="card">
+              <div class="card-body">
+                <div class="d-flex justify-content-between px-md-1">
+                  <div>
+                    <h3 class="text-info">
+                      <?= count(array_filter(array_map(function ($tool) {
+                        return $tool->CategoryId == 2 ? 1 : 0;
+                      }, $all_tools))) ?>
+                    </h3>
+                    <p class="mb-0">Power Tools</p>
+                  </div>
+                  <div class="align-self-center">
+                    <i class="fas fa-gear text-info fa-3x"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-sm-6 col-12 mb-4">
+            <div class="card">
+              <div class="card-body">
+                <div class="d-flex justify-content-between px-md-1">
+                  <div>
+                    <h3 class="text-info">
+                      <?= count(array_filter(array_map(function ($tool) {
+                        return $tool->CategoryId == 3 ? 1 : 0;
+                      }, $all_tools))) ?>
+                    </h3>
+                    <p class="mb-0">Measuring Tools</p>
+                  </div>
+                  <div class="align-self-center">
+                    <i class="fas fa-ruler-combined text-info fa-3x"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-sm-6 col-12 mb-4">
+            <div class="card">
+              <div class="card-body">
+                <div class="d-flex justify-content-between px-md-1">
+                  <div>
+                    <h3 class="text-info">
+                      <?= count(array_filter(array_map(function ($tool) {
+                        return $tool->CategoryId == 4 ? 1 : 0;
+                      }, $all_tools))) ?>
+                    </h3>
+                    <p class="mb-0">Electrical Tools</p>
+                  </div>
+                  <div class="align-self-center">
+                    <i class="fas fa-bolt text-info fa-3x"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <h5>Tools Count</h5>
+        <div class="row">
+          <?php foreach ($tools_count as $key_t => $count) : ?>
+          <div class="col-xl-3 col-sm-6 col-12 mb-4">
+            <div class="card">
+              <div class="card-body">
+                <div class="d-flex justify-content-between px-md-1">
+                  <div>
+                    <h3 class="text-secondary">
+                      <?= $count->count ?>
+                    </h3>
+                    <p class="mb-0"><?= $count->ToolName ?></p>
+                  </div>
+                  <div class="align-self-center">
+                    <i class="fas fa-wrench text-secondary fa-3x"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <?php endforeach; ?>  
+        </div>
+        <h5>Top 5 Most Used Tools</h5>
+        <div class="row">
+          <?php foreach ($top_five as $key_t => $top) : ?>
+          <div class="col-xl-3 col-sm-6 col-12 mb-4">
+            <div class="card">
+              <div class="card-body">
+                <div class="d-flex justify-content-between px-md-1">
+                  <div>
+                    <h3 class="text-info">
+                      <?= $top->count_top ?>
+                    </h3>
+                    <p class="mb-0"><?= $top->ToolName ?></p>
+                  </div>
+                  <div class="align-self-center">
+                    <i class="fas fa-wrench text-info fa-3x"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <?php endforeach; ?>
         </div>
       </section>
 
@@ -333,13 +460,13 @@
                     <p class="card-text" style="font-size:12px"><?= $tool->Description ?></p>
                     <hr>
                     <?php
-
-                    echo   !empty(_getToolStatusById($tool->id)->BorrowedBy)
+      
+                    echo   !empty(_getToolStatusById($tool->id)->BorrowedBy) && _getToolStatusById($tool->id)->StatusId != 4
                       ?
                       '<span class="card-text" style="font-size:12px">Borrowed by: ' . _getToolStatusById($tool->id)->BorrowedBy . '</span><br>
                      <span class="card-text" style="font-size:12px">Borrowed date: ' . date('M d,Y', strtotime(_getToolStatusById($tool->id)->BorrowedDate)) . '</span>'
 
-                      : '<p class="card-text" style="font-size:12px">Tool is available</p>';
+                      : '<p class="card-text" style="font-size:12px;color : green">Tool is available</p>';
                     if ($_SESSION['role'] != 1):
                       if ($tool->isBorrowed == 0): ?>
                         <a href="#!" class="btn btn-info borrow-tool-class tool-<?= $tool->BarcodeId ?>" data-mdb-ripple-init data-toolid="<?= $tool->id ?>" data-barcodeid="<?= $tool->BarcodeId ?>">Borrow</a>
@@ -349,6 +476,7 @@
 
                     <?php endif;
                     endif;
+                
                     ?>
                   </div>
                 </div>
@@ -413,42 +541,64 @@
               <tr>
                 <td><?= $borrowed->ToolBarCode ?></td>
                 <td><?= $borrowed->ToolId ?></td>
-                <td><?= $borrowed->BorrowedDate ?></td>
-                <td><?= $borrowed->ReturnedDate ?></td>
+                <td><?= date('M d,Y h:i A', strtotime($borrowed->BorrowedDate)) ?></td>
+                <td><?= date('M d,Y h:i A', strtotime($borrowed->ReturnedDate)) ?></td>
                 <td><?= $borrowed->BorrowedBy ?></td>
-                <td><?= empty($borrowed->ReturnedDate) ? "<button data-barcode='{$borrowed->ToolBarCode}' data-toolid='{$borrowed->ToolId}' data-id='{$borrowed->id}' class='btn btn-danger return-tool'>Return Tool</button>" : 'Returned'  ?></td>
+                <td>
+                  <?php if($borrowed->StatusId == 1 && $_SESSION['role'] == 1): ?>
+                    <button data-barcode='<?= $borrowed->ToolBarCode ?>' data-toolid='<?= $borrowed->ToolId ?>' data-id='<?= $borrowed->id ?>' class='btn btn-info approve-borrow'>APPROVE BORROW</button>
+                  <?php elseif($borrowed->StatusId == 6 && $_SESSION['role'] == 1) : ?>
+                    <button data-barcode='<?= $borrowed->ToolBarCode ?>' data-toolid='<?= $borrowed->ToolId ?>' data-id='<?= $borrowed->id ?>' class='btn btn-warning approve-return'>APPROVED RETURN</button>
+                  <?php else:
+                    if(empty($borrowed->ReturnedDate ) && $_SESSION['role'] != 1 &&  in_array($borrowed->StatusId ,[2])): ?>
+                      <button data-barcode='<?= $borrowed->ToolBarCode ?>' data-toolid='<?= $borrowed->ToolId ?>' data-id='<?= $borrowed->id ?>' class='btn btn-danger return-tool'>Return Tool</button>
+                    <?php else: ?>
+                      <span class="badge rounded-pill bg-success"><?= _getStatusNameById($borrowed->StatusId) ?></span>
+                    <?php endif; ?>
+                  <?php endif; ?>
+                </td>
               </tr>
             <?php endforeach; ?>
           </tbody>
         </table>
       </section>
-
-
       <section id="tool-registration" class="content-display" style="display: none;">
-
         <div class="card p-5">
           <h2 class="h2">Tool Registration Form</h2>
-          <form action="#" method="POST" enctype="multipart/form-data">
-            <div class="form-group">
+          <form action="#" id="tool-registration-form" method="POST" enctype="multipart/form-data">
+          <div class="form-group">
+              <label for="tool_group">Tool Group</label>
+              <select name="tool_group" id="tool_group" class="form-control">
+              <?php foreach ($groups   as $key_gr => $gr): ?>
+                <option value="<?= $gr->id ?>"><?= $gr->GroupName ?></option>
+                <?php endforeach ?>
+                <option value="0">other</option>
+              </select>
+            </div>
+            <div class="form-group" id="tool_name" style="display: none;">
               <label for="tool_name">Tool Name</label>
-              <input type="text" id="tool_name" name="tool_name" required>
+              <input type="text" id="tool_name" name="tool_name" placeholder="Please Enter Tool Name" required>
             </div>
             <div class="form-group">
-              <label for="tool_id">Tool ID</label>
-              <input type="text" id="tool_id" name="tool_id" required>
+              <label for="tool_id">Category</label>
+              <select name="tool_id" id="" class="form-control">
+              <option value="1">Handy Tools</option>
+              <option value="2">Power Tools</option>
+              <option value="3">Measuring Tools</option>
+              <option value="4">Electrical</option>
+              </select>
             </div>
             <div class="form-group">
-              <label for="quantity">Quantity</label>
-              <input type="number" id="quantity" name="quantity" required>
+              <label for="short_description">Short Description</label>
+              <textarea id="short_description" name="short_description" class="form-control" placeholder="Enter short description" rows="3" required></textarea>
             </div>
-            <div class="form-group">
+            <div class="form-group" id="upload_tool" style="display: none;">
               <label for="file">Upload Tool Image</label>
               <input type="file" id="file" name="file" required>
             </div>
             <button type="submit">Register Tool</button>
           </form>
         </div>
-
       </section>
     </div>
   </main>
@@ -472,6 +622,46 @@
       startScanner();
     });
 
+
+    $(document).on('submit','#tool-registration-form',function(e){
+      e.preventDefault();
+
+      Swal.fire({
+          title: "Are you sure?",
+          text: "You won't be able to revert this!",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes, save it!"
+        }).then((result) => {
+          if (result.isConfirmed) {
+            $.ajax({
+              url: base_url + "store-tools",
+              method: "POST",
+              data: {
+                barCode: scannedCode,
+                toolid: toolid
+              },
+              dataType: "json",
+              success: function(response) {
+                console.log(response);
+              
+              }
+            });
+          }
+        });
+    })
+    $(document).on('change','#tool_group',function(){
+      if($(this).val() == 0){
+        $('#tool_name').show();
+        $('#upload_tool').hide();
+      }else{
+        $('#tool_name').hide();
+        $('#upload_tool').show();
+      }
+      
+    })
     function startScanner() {
       Quagga.init({
         inputStream: {
@@ -597,6 +787,7 @@
                       // location.reload();
                     }
                   });
+                  $('.tool-' + scannedCode).removeClass('borrow-tool-class');
                   $('.tool-' + scannedCode).removeClass('btn-info');
                   $('.tool-' + scannedCode).addClass('btn-warning');
                   $('.tool-' + scannedCode).text('FOR APPROVAL');
@@ -614,6 +805,88 @@
       })
 
     });
+    $(document).on('click','.approve-return',function(){
+      var barcode = $(this).data('barcode');
+      var toolid = $(this).data('toolid');
+      var request_id = $(this).data('id');
+
+      Swal.fire({
+        title: "Are you sure?",
+        text: "Please confirm if you want to return!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, approved it!"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          $.ajax({
+            url: base_url + "approved-return",
+            method: "POST",
+            data: {
+              barCode: barcode,
+              toolid: toolid,
+              request_id:request_id
+            },
+            dataType: "json",
+            success: function(response) {
+              Swal.fire({
+                title: "Tool has been approved to return!",
+                text: "page will be reloaded.",
+                icon: "success"
+              });
+
+              setInterval(() => {
+                location.reload();
+              },1500)
+
+            }
+          })
+        }
+      });
+    })
+
+    $(document).on('click','.approve-borrow',function(){
+      var barcode = $(this).data('barcode');
+      var toolid = $(this).data('toolid');
+      var request_id = $(this).data('id');
+
+      Swal.fire({
+        title: "Are you sure?",
+        text: "Please confirm if you want to return!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, approved it!"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          $.ajax({
+            url: base_url + "approved-tool",
+            method: "POST",
+            data: {
+              barCode: barcode,
+              toolid: toolid,
+              request_id:request_id
+            },
+            dataType: "json",
+            success: function(response) {
+              Swal.fire({
+                title: "Tool has been approved",
+                text: "page will be reloaded.",
+                icon: "success"
+              });
+
+              setInterval(() => {
+                location.reload();
+              },1500)
+
+            }
+          })
+        }
+      });
+    })
+
     $(document).on('click', '.return-tool', function() {
       var barcode = $(this).data('barcode');
       var toolid = $(this).data('toolid');
@@ -644,6 +917,9 @@
                 text: "page will be reloaded.",
                 icon: "success"
               });
+              setInterval(() => {
+                location.reload();
+              },1500)
 
             }
           })
