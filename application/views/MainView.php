@@ -6,17 +6,116 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <meta http-equiv="x-ua-compatible" content="ie=edge" />
   <title>XTrakr</title>
+  <link rel="icon" href="<?= base_url() ?>assets/image/xtrackr-icon.png">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css" />
   <!-- Google Fonts Roboto -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" />
   <!-- MDB -->
-  <link rel="stylesheet" href="<?= base_url()?>assets/mdb/css/mdb.min.css" />
+  <link rel="stylesheet" href="<?= base_url() ?>assets/mdb/css/mdb.min.css" />
   <!-- Custom styles -->
-  <link rel="stylesheet" href="<?= base_url()?>assets/mdb/css/admin.css" />
+  <link rel="stylesheet" href="<?= base_url() ?>assets/mdb/css/admin.css" />
   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js" integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw==" -->
-    crossorigin="anonymous"></script>
+  <!-- crossorigin="anonymous"></script> -->
+  <link rel="stylesheet" href="https://cdn.datatables.net/2.2.2/css/dataTables.dataTables.css" />
 </head>
+
+<style>
+  .h2 {
+    text-align: center;
+    color: #333;
+  }
+
+  .form-group {
+    margin-bottom: 15px;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+
+  input[type="text"],
+  input[type="number"],
+  input[type="file"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+  button {
+    width: 100%;
+    padding: 10px;
+    background: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background: #218838;
+  }
+
+  #interactive {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    margin: auto;
+    display: none;
+  }
+
+  video {
+    width: 100%;
+    height: auto;
+  }
+
+  #result {
+    margin-top: 20px;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  #startButton {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  @media screen and (max-width: 600px) {
+    #mobile-view {
+      display: block;
+    }
+
+    #desktop-view {
+      display: none;
+    }
+  }
+
+  @media screen and (min-width: 600px) {
+    #mobile-view {
+      display: none;
+    }
+
+    #desktop-view {
+      display: block;
+    }
+
+  }
+
+  .tool-card:hover {
+    transform: scale(1.02);
+  }
+
+  .active-list {
+    color: #3b71ca;
+  }
+</style>
 
 <body>
   <!--Main Navigation-->
@@ -25,31 +124,20 @@
     <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
       <div class="position-sticky">
         <div class="list-group list-group-flush mx-3 mt-4">
-          <a href="#" class="list-group-item list-group-item-action py-2 active" data-mdb-ripple-init aria-current="true">
+          <a href="#" class="list-group-item list-group-item-action py-2 active" data-content="dashboard" data-mdb-ripple-init aria-current="true">
             <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Main dashboard</span>
           </a>
-          <a href="#" class="list-group-item list-group-item-action py-2" data-mdb-ripple-init>
-            <i class="fas fa-toolbox fa-fw me-3"></i><span>Borrowed Tools</span>
+          <a href="#" class="list-group-item list-group-item-action py-2" data-content="borrow-tools" data-mdb-ripple-init>
+            <i class="fas fa-toolbox fa-fw me-3"></i><span>Borrow Tools</span>
           </a>
-          <a href="#" class="list-group-item list-group-item-action py-2" data-mdb-ripple-init><i
+          <a href="#" class="list-group-item list-group-item-action py-2" data-content="borrow-history" data-mdb-ripple-init><i
               class="fas fa-history fa-fw me-3"></i><span>Borrowed History</span></a>
-          <a href="#" class="list-group-item list-group-item-action py-2" data-mdb-ripple-init><i
-              class="fas fa-plus fa-fw me-3"></i><span>Tool Registration</span></a>
-          <!-- <a href="#" class="list-group-item list-group-item-action py-2" data-mdb-ripple-init>
-            <i class="fas fa-chart-pie fa-fw me-3"></i><span>SEO</span>
-          </a>
-          <a href="#" class="list-group-item list-group-item-action py-2" data-mdb-ripple-init><i
-              class="fas fa-chart-bar fa-fw me-3"></i><span>Orders</span></a>
-          <a href="#" class="list-group-item list-group-item-action py-2" data-mdb-ripple-init><i
-              class="fas fa-globe fa-fw me-3"></i><span>International</span></a>
-          <a href="#" class="list-group-item list-group-item-action py-2" data-mdb-ripple-init><i
-              class="fas fa-building fa-fw me-3"></i><span>Partners</span></a>
-          <a href="#" class="list-group-item list-group-item-action py-2" data-mdb-ripple-init><i
-              class="fas fa-calendar fa-fw me-3"></i><span>Calendar</span></a>
-          <a href="#" class="list-group-item list-group-item-action py-2" data-mdb-ripple-init><i
-              class="fas fa-users fa-fw me-3"></i><span>Users</span></a>
-          <a href="#" class="list-group-item list-group-item-action py-2" data-mdb-ripple-init><i
-              class="fas fa-money-bill fa-fw me-3"></i><span>Sales</span></a> -->
+          <?php if ($this->session->userdata('role') == 1): ?>
+            <a href="#" class="list-group-item list-group-item-action py-2" data-content="tool-registration" data-mdb-ripple-init><i
+                class="fas fa-plus fa-fw me-3"></i><span>Tool Registration</span></a>
+            <a href="#" class="list-group-item list-group-item-action py-2" data-content="tool-approval" data-mdb-ripple-init><i
+                class="fas fa-checklist fa-fw me-3"></i><span>Tool Approval</span></a>
+          <?php endif; ?>
         </div>
       </div>
     </nav>
@@ -62,19 +150,13 @@
         <!-- Toggle button -->
         <button class="navbar-toggler" type="button" data-mdb-collapse-init data-mdb-target="#sidebarMenu"
           aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
-          <i class="fas fa-bars"></i>
+          <i class="fas fa-bars" style="float: left;"></i>
         </button>
 
         <!-- Brand -->
         <a class="navbar-brand" href="#">
-          <img src="<?= base_url()?>assets/image/xtrackr-logo.png" height="25" alt="" loading="lazy" />
+          <img src="<?= base_url() ?>assets/image/xtrackr-logo.png" height="25" alt="" loading="lazy" />
         </a>
-        <!-- Search form -->
-        <!-- <form class="d-none d-md-flex input-group w-auto my-auto">
-          <input autocomplete="off" type="search" class="form-control rounded"
-            placeholder='Search (ctrl + "/" to focus)' style="min-width: 225px" />
-          <span class="input-group-text border-0"><i class="fas fa-search"></i></span>
-        </form> -->
 
         <!-- Right links -->
         <ul class="navbar-nav ms-auto d-flex flex-row">
@@ -94,59 +176,7 @@
             </ul>
           </li>
 
-          <!-- Icon -->
-          <li class="nav-item">
-            <a class="nav-link me-3 me-lg-0" href="#">
-              <i class="fas fa-fill-drip"></i>
-            </a>
-          </li>
-          <!-- Icon -->
-          <!-- <li class="nav-item me-3 me-lg-0">
-            <a class="nav-link" href="#">
-              <i class="fab fa-github"></i>
-            </a>
-          </li> -->
 
-          <!-- Icon dropdown -->
-          <li class="nav-item dropdown">
-            <a class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow" href="#" id="navbarDropdown" role="button"
-              data-mdb-dropdown-init aria-expanded="false">
-              <i class="united kingdom flag m-0"></i>
-            </a>
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-              <li>
-                <a class="dropdown-item" href="#"><i class="united kingdom flag"></i>English
-                  <i class="fa fa-check text-success ms-2"></i></a>
-              </li>
-              <li>
-                <hr class="dropdown-divider" />
-              </li>
-              <li>
-                <a class="dropdown-item" href="#"><i class="poland flag"></i>Polski</a>
-              </li>
-              <li>
-                <a class="dropdown-item" href="#"><i class="china flag"></i>中文</a>
-              </li>
-              <li>
-                <a class="dropdown-item" href="#"><i class="japan flag"></i>日本語</a>
-              </li>
-              <li>
-                <a class="dropdown-item" href="#"><i class="germany flag"></i>Deutsch</a>
-              </li>
-              <li>
-                <a class="dropdown-item" href="#"><i class="france flag"></i>Français</a>
-              </li>
-              <li>
-                <a class="dropdown-item" href="#"><i class="spain flag"></i>Español</a>
-              </li>
-              <li>
-                <a class="dropdown-item" href="#"><i class="russia flag"></i>Русский</a>
-              </li>
-              <li>
-                <a class="dropdown-item" href="#"><i class="portugal flag"></i>Português</a>
-              </li>
-            </ul>
-          </li>
 
           <!-- Avatar -->
           <li class="nav-item dropdown">
@@ -158,7 +188,7 @@
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
               <li><a class="dropdown-item" href="#">My profile</a></li>
               <li><a class="dropdown-item" href="#">Settings</a></li>
-              <li><a class="dropdown-item" href="#">Logout</a></li>
+              <li><a class="dropdown-item" id="logout" href="#">Logout</a></li>
             </ul>
           </li>
         </ul>
@@ -172,184 +202,14 @@
   <!--Main layout-->
   <main style="margin-top: 58px">
     <div class="container pt-4">
-      <!-- Section: Main chart -->
-      <!-- <section class="mb-4">
-        <div class="card">
-          <div class="card-header py-3">
-            <h5 class="mb-0 text-center"><strong>Sales</strong></h5>
-          </div>
-          <div class="card-body">
-            <canvas class="my-4 w-100" id="myChart" height="380"></canvas>
-          </div>
-        </div>
-      </section> -->
-      <!-- Section: Main chart -->
-
-      <!--Section: Sales Performance KPIs-->
-      <!-- <section class="mb-4">
-        <div class="card">
-          <div class="card-header text-center py-3">
-            <h5 class="mb-0 text-center">
-              <strong>Sales Performance KPIs</strong>
-            </h5>
-          </div>
-          <div class="card-body">
-            <div class="table-responsive">
-              <table class="table table-hover text-nowrap">
-                <thead>
-                  <tr>
-                    <th scope="col"></th>
-                    <th scope="col">Product Detail Views</th>
-                    <th scope="col">Unique Purchases</th>
-                    <th scope="col">Quantity</th>
-                    <th scope="col">Product Revenue</th>
-                    <th scope="col">Avg. Price</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th scope="row">Value</th>
-                    <td>18,492</td>
-                    <td>228</td>
-                    <td>350</td>
-                    <td>$4,787.64</td>
-                    <td>$13.68</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">Percentage change</th>
-                    <td>
-                      <span class="text-danger">
-                        <i class="fas fa-caret-down me-1"></i><span>-48.8%%</span>
-                      </span>
-                    </td>
-                    <td>
-                      <span class="text-success">
-                        <i class="fas fa-caret-up me-1"></i><span>14.0%</span>
-                      </span>
-                    </td>
-                    <td>
-                      <span class="text-success">
-                        <i class="fas fa-caret-up me-1"></i><span>46.4%</span>
-                      </span>
-                    </td>
-                    <td>
-                      <span class="text-success">
-                        <i class="fas fa-caret-up me-1"></i><span>29.6%</span>
-                      </span>
-                    </td>
-                    <td>
-                      <span class="text-danger">
-                        <i class="fas fa-caret-down me-1"></i><span>-11.5%</span>
-                      </span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">Absolute change</th>
-                    <td>
-                      <span class="text-danger">
-                        <i class="fas fa-caret-down me-1"></i><span>-17,654</span>
-                      </span>
-                    </td>
-                    <td>
-                      <span class="text-success">
-                        <i class="fas fa-caret-up me-1"></i><span>28</span>
-                      </span>
-                    </td>
-                    <td>
-                      <span class="text-success">
-                        <i class="fas fa-caret-up me-1"></i><span>111</span>
-                      </span>
-                    </td>
-                    <td>
-                      <span class="text-success">
-                        <i class="fas fa-caret-up me-1"></i><span>$1,092.72</span>
-                      </span>
-                    </td>
-                    <td>
-                      <span class="text-danger">
-                        <i class="fas fa-caret-down me-1"></i><span>$-1.78</span>
-                      </span>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </section> -->
-      <!--Section: Sales Performance KPIs-->
-
-      <!--Section: Minimal statistics cards-->
-      <section>
-        <!-- <div class="row">
-          <div class="col-xl-3 col-sm-6 col-12 mb-4">
-            <div class="card">
-              <div class="card-body">
-                <div class="d-flex justify-content-between px-md-1">
-                  <div class="align-self-center">
-                    <i class="fas fa-pencil-alt text-info fa-3x"></i>
-                  </div>
-                  <div class="text-end">
-                    <h3>278</h3>
-                    <p class="mb-0">New Posts</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-xl-3 col-sm-6 col-12 mb-4">
-            <div class="card">
-              <div class="card-body">
-                <div class="d-flex justify-content-between px-md-1">
-                  <div class="align-self-center">
-                    <i class="far fa-comment-alt text-warning fa-3x"></i>
-                  </div>
-                  <div class="text-end">
-                    <h3>156</h3>
-                    <p class="mb-0">New Comments</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-xl-3 col-sm-6 col-12 mb-4">
-            <div class="card">
-              <div class="card-body">
-                <div class="d-flex justify-content-between px-md-1">
-                  <div class="align-self-center">
-                    <i class="fas fa-chart-line text-success fa-3x"></i>
-                  </div>
-                  <div class="text-end">
-                    <h3>64.89 %</h3>
-                    <p class="mb-0">Bounce Rate</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-xl-3 col-sm-6 col-12 mb-4">
-            <div class="card">
-              <div class="card-body">
-                <div class="d-flex justify-content-between px-md-1">
-                  <div class="align-self-center">
-                    <i class="fas fa-map-marker-alt text-danger fa-3x"></i>
-                  </div>
-                  <div class="text-end">
-                    <h3>423</h3>
-                    <p class="mb-0">Total Visits</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div> -->
+      <section id="dashboard" class="content-display">
         <div class="row">
-        <div class="col-xl-3 col-sm-6 col-12 mb-4">
+          <div class="col-xl-3 col-sm-6 col-12 mb-4">
             <div class="card">
               <div class="card-body">
                 <div class="d-flex justify-content-between px-md-1">
                   <div>
-                    <h3 class="text-info">100</h3>
+                    <h3 class="text-info"><?= count($all_tools) ?></h3>
                     <p class="mb-0">Total tools</p>
                   </div>
                   <div class="align-self-center">
@@ -359,13 +219,17 @@
               </div>
             </div>
           </div>
-        
+
           <div class="col-xl-3 col-sm-6 col-12 mb-4">
             <div class="card">
               <div class="card-body">
                 <div class="d-flex justify-content-between px-md-1">
                   <div>
-                    <h3 class="text-success">77</h3>
+                    <h3 class="text-success">
+                      <?= count(array_filter(array_map(function ($tool) {
+                        return $tool->isBorrowed == 0 ? 1 : 0;
+                      }, $all_tools))) ?>
+                    </h3>
                     <p class="mb-0">Available</p>
                   </div>
                   <div class="align-self-center">
@@ -380,7 +244,11 @@
               <div class="card-body">
                 <div class="d-flex justify-content-between px-md-1">
                   <div>
-                    <h3 class="text-warning">20</h3>
+                    <h3 class="text-warning">
+                      <?= count(array_filter(array_map(function ($tool) {
+                        return $tool->isBorrowed == 1 ? 1 : 0;
+                      }, $all_tools))) ?>
+                    </h3>
                     <p class="mb-0">Barrowed</p>
                   </div>
                   <div class="align-self-center">
@@ -390,7 +258,7 @@
               </div>
             </div>
           </div>
-           <div class="col-xl-3 col-sm-6 col-12 mb-4">
+          <div class="col-xl-3 col-sm-6 col-12 mb-4">
             <div class="card">
               <div class="card-body">
                 <div class="d-flex justify-content-between px-md-1">
@@ -406,191 +274,464 @@
             </div>
           </div>
         </div>
-        <!-- <div class="row">
-          <div class="col-xl-3 col-sm-6 col-12 mb-4">
-            <div class="card">
-              <div class="card-body">
-                <div class="d-flex justify-content-between px-md-1">
-                  <div>
-                    <h3 class="text-info">278</h3>
-                    <p class="mb-0">New Posts</p>
-                  </div>
-                  <div class="align-self-center">
-                    <i class="fas fa-book-open text-info fa-3x"></i>
-                  </div>
-                </div>
-                <div class="px-md-1">
-                  <div class="progress mt-3 mb-1 rounded" style="height: 7px">
-                    <div class="progress-bar bg-info" role="progressbar" style="width: 80%" aria-valuenow="80"
-                      aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-xl-3 col-sm-6 col-12 mb-4">
-            <div class="card">
-              <div class="card-body">
-                <div class="d-flex justify-content-between px-md-1">
-                  <div>
-                    <h3 class="text-warning">156</h3>
-                    <p class="mb-0">New Comments</p>
-                  </div>
-                  <div class="align-self-center">
-                    <i class="far fa-comments text-warning fa-3x"></i>
-                  </div>
-                </div>
-                <div class="px-md-1">
-                  <div class="progress mt-3 mb-1 rounded" style="height: 7px">
-                    <div class="progress-bar bg-warning" role="progressbar" style="width: 35%" aria-valuenow="35"
-                      aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-xl-3 col-sm-6 col-12 mb-4">
-            <div class="card">
-              <div class="card-body">
-                <div class="d-flex justify-content-between px-md-1">
-                  <div>
-                    <h3 class="text-success">64.89 %</h3>
-                    <p class="mb-0">Bounce Rate</p>
-                  </div>
-                  <div class="align-self-center">
-                    <i class="fas fa-mug-hot text-success fa-3x"></i>
-                  </div>
-                </div>
-                <div class="px-md-1">
-                  <div class="progress mt-3 mb-1 rounded" style="height: 7px">
-                    <div class="progress-bar bg-success" role="progressbar" style="width: 60%" aria-valuenow="60"
-                      aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-xl-3 col-sm-6 col-12 mb-4">
-            <div class="card">
-              <div class="card-body">
-                <div class="d-flex justify-content-between px-md-1">
-                  <div>
-                    <h3 class="text-danger">423</h3>
-                    <p class="mb-0">Total Visits</p>
-                  </div>
-                  <div class="align-self-center">
-                    <i class="fas fa-map-signs text-danger fa-3x"></i>
-                  </div>
-                </div>
-                <div class="px-md-1">
-                  <div class="progress mt-3 mb-1 rounded" style="height: 7px">
-                    <div class="progress-bar bg-danger" role="progressbar" style="width: 40%" aria-valuenow="40"
-                      aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div> -->
       </section>
-      <!--Section: Minimal statistics cards-->
 
-      <!--Section: Statistics with subtitles-->
-      <!-- <section>
-        <div class="row">
-          <div class="col-xl-6 col-md-12 mb-4">
-            <div class="card">
-              <div class="card-body">
-                <div class="d-flex justify-content-between p-md-1">
-                  <div class="d-flex flex-row">
-                    <div class="align-self-center">
-                      <i class="fas fa-pencil-alt text-info fa-3x me-4"></i>
-                    </div>
-                    <div>
-                      <h4>Total Posts</h4>
-                      <p class="mb-0">Monthly blog posts</p>
-                    </div>
-                  </div>
-                  <div class="align-self-center">
-                    <h2 class="h1 mb-0">18,000</h2>
-                  </div>
-                </div>
-              </div>
-            </div>
+
+      <section id="borrow-tools" class="content-display" style="display: none;">
+        <h3>Borrow tool</h3>
+        <span style="float: right;">
+          <i class="fas fa-list fa-2x choose-list" data-show="table"></i>
+          <i class="fa-solid fa-image fa-2x choose-list active-list" data-show="card"></i>
+        </span>
+        <div style="margin: 20px;" id="borrow-tools-filter">
+          <div id="mobile-view">
+            <button id="startButton">Start Scan</button>
+            <div id="interactive" class="viewport"></div>
+            <p id="result"></p>
           </div>
-          <div class="col-xl-6 col-md-12 mb-4">
-            <div class="card">
-              <div class="card-body">
-                <div class="d-flex justify-content-between p-md-1">
-                  <div class="d-flex flex-row">
-                    <div class="align-self-center">
-                      <i class="far fa-comment-alt text-warning fa-3x me-4"></i>
-                    </div>
-                    <div>
-                      <h4>Total Comments</h4>
-                      <p class="mb-0">Monthly blog posts</p>
-                    </div>
-                  </div>
-                  <div class="align-self-center">
-                    <h2 class="h1 mb-0">84,695</h2>
-                  </div>
-                </div>
+          <div id="desktop-view">
+            <label for="">Enter Key word</label>
+            <div class="row">
+              <div class="col-md-6">
+                <input type="text" id="tool_id" name="tool_id" placeholder="Type here">
+              </div>
+              <div class="col-md-2">
+                <select name="category" id="category" class="form-control">
+                  <option value="" selected disabled>--select category--</option>
+                  <option value="all">All</option>
+                  <option value="1">Handy Tools</option>
+                  <option value="2">Power Tools</option>
+                  <option value="3">Measuring Tools</option>
+                  <option value="4">Electrical</option>
+                </select>
               </div>
             </div>
           </div>
         </div>
-        <div class="row">
-          <div class="col-xl-6 col-md-12 mb-4">
-            <div class="card">
-              <div class="card-body">
-                <div class="d-flex justify-content-between p-md-1">
-                  <div class="d-flex flex-row">
-                    <div class="align-self-center">
-                      <h2 class="h1 mb-0 me-4">$76,456.00</h2>
-                    </div>
-                    <div>
-                      <h4>Total Sales</h4>
-                      <p class="mb-0">Monthly Sales Amount</p>
-                    </div>
-                  </div>
-                  <div class="align-self-center">
-                    <i class="far fa-heart text-danger fa-3x"></i>
+
+        <div class="container">
+          <div class="row borrowed-tools-list" id="card_display">
+            <center><span id="result_search"></span></center>
+            <?php foreach ($all_tools as $key_tool => $tool): ?>
+              <div class="col-md-3 tool-card-display">
+                <div class="card m-2 tool-card" data-catid="<?= $tool->CategoryId ?>" data-toolname="<?= $tool->ToolName ?>" data-category="<?= $tool->CategoryName ?>" data-barcode="<?= $tool->BarcodeId ?>">
+                  <style scope>
+                    .tool-card img {
+                      height: 100%;
+                      width: auto;
+                      object-fit: contain;
+                    }
+                  </style>
+                  <?php if (!empty($tool->ImageName)): ?>
+                    <img src="<?= base_url() ?>assets/tool_image/<?= $tool->ImageName ?>" class="card-img-top" alt="Fissure in Sandstone" />
+                  <?php else: ?>
+                    <img src="<?= base_url() ?>assets/tool_image/default.png" class="card-img-top" alt="Fissure in Sandstone" />
+                  <?php endif; ?>
+                  <div class="card-body">
+                    <h5 class="card-title"> <span style="color:<?= $tool->isBorrowed == 0 ? 'green' : 'orange'  ?>"><?= $tool->ToolName ?></span> | <?= $tool->CategoryName ?></h5>
+                    <span style="font-size: 12px;">ID:<?= $tool->BarcodeId ?></span>
+                    <p class="card-text" style="font-size:12px"><?= $tool->Description ?></p>
+                    <hr>
+                    <?php
+
+                    echo   !empty(_getToolStatusById($tool->id)->BorrowedBy)
+                      ?
+                      '<span class="card-text" style="font-size:12px">Borrowed by: ' . _getToolStatusById($tool->id)->BorrowedBy . '</span><br>
+                     <span class="card-text" style="font-size:12px">Borrowed date: ' . date('M d,Y', strtotime(_getToolStatusById($tool->id)->BorrowedDate)) . '</span>'
+
+                      : '<p class="card-text" style="font-size:12px">Tool is available</p>';
+                    if ($_SESSION['role'] != 1):
+                      if ($tool->isBorrowed == 0): ?>
+                        <a href="#!" class="btn btn-info borrow-tool-class tool-<?= $tool->BarcodeId ?>" data-mdb-ripple-init data-toolid="<?= $tool->id ?>" data-barcodeid="<?= $tool->BarcodeId ?>">Borrow</a>
+                      <?php else: ?>
+
+                        <a href="#!" class="btn <?= _getToolStatusById($tool->id)->class ?>" data-mdb-ripple-init><?= _getToolStatusById($tool->id)->BorrowedBy == $_SESSION['username'] ?    _getToolStatusById($tool->id)->StatusName : 'Not Available' ?></a>
+
+                    <?php endif;
+                    endif;
+                    ?>
                   </div>
                 </div>
               </div>
-            </div>
+
+            <?php endforeach; ?>
+
           </div>
-          <div class="col-xl-6 col-md-12 mb-4">
-            <div class="card">
-              <div class="card-body">
-                <div class="d-flex justify-content-between p-md-1">
-                  <div class="d-flex flex-row">
-                    <div class="align-self-center">
-                      <h2 class="h1 mb-0 me-4">$36,000.00</h2>
-                    </div>
-                    <div>
-                      <h4>Total Cost</h4>
-                      <p class="mb-0">Monthly Cost</p>
-                    </div>
-                  </div>
-                  <div class="align-self-center">
-                    <i class="fas fa-wallet text-success fa-3x"></i>
-                  </div>
-                </div>
-              </div>
-            </div>
+
+          <div class="row borrowed-tools-list" id="table_display" style="display: none;">
+            <table class="table" id="borrowed-tools-table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Tool Name</th>
+                  <th>Status</th>
+                  <th>Borrower</th>
+                  <th>Borrowed Date</th>
+                </tr>
+
+              </thead>
+              <tbody>
+                <?php foreach ($all_tools as $key_tool => $tool):
+                ?>
+                  <tr>
+                    <td><?= $tool->id ?></td>
+                    <td><?= $tool->ToolName ?></td>
+                    <td><?php
+                        if (!empty(_getToolStatusById($tool->id))) {
+                          echo _getToolStatusById($tool->id)->BorrowedBy == $_SESSION['username'] ?    _getToolStatusById($tool->id)->StatusName : 'Not Available';
+                        } else {
+                          echo 'Available';
+                        }
+
+                        ?></td>
+                    <td><?= '--' ?></td>
+                    <td><?= '--'  ?></td>
+                  </tr>
+                <?php endforeach; ?>
+              </tbody>
+            </table>
           </div>
         </div>
-      </section> -->
-      <!--Section: Statistics with subtitles-->
+      </section>
+
+
+      <section id="borrow-history" class="content-display" style="display: none;">
+        <h3>Borrow history</h3>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Tool Name</th>
+              <th>Borrowed Date</th>
+              <th>Return Date</th>
+              <th>Borrower</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php foreach ($all_borrowed as $key_borr => $borrowed): ?>
+              <tr>
+                <td><?= $borrowed->ToolBarCode ?></td>
+                <td><?= $borrowed->ToolId ?></td>
+                <td><?= $borrowed->BorrowedDate ?></td>
+                <td><?= $borrowed->ReturnedDate ?></td>
+                <td><?= $borrowed->BorrowedBy ?></td>
+                <td><?= empty($borrowed->ReturnedDate) ? "<button data-barcode='{$borrowed->ToolBarCode}' data-toolid='{$borrowed->ToolId}' data-id='{$borrowed->id}' class='btn btn-danger return-tool'>Return Tool</button>" : 'Returned'  ?></td>
+              </tr>
+            <?php endforeach; ?>
+          </tbody>
+        </table>
+      </section>
+
+
+      <section id="tool-registration" class="content-display" style="display: none;">
+
+        <div class="card p-5">
+          <h2 class="h2">Tool Registration Form</h2>
+          <form action="#" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+              <label for="tool_name">Tool Name</label>
+              <input type="text" id="tool_name" name="tool_name" required>
+            </div>
+            <div class="form-group">
+              <label for="tool_id">Tool ID</label>
+              <input type="text" id="tool_id" name="tool_id" required>
+            </div>
+            <div class="form-group">
+              <label for="quantity">Quantity</label>
+              <input type="number" id="quantity" name="quantity" required>
+            </div>
+            <div class="form-group">
+              <label for="file">Upload Tool Image</label>
+              <input type="file" id="file" name="file" required>
+            </div>
+            <button type="submit">Register Tool</button>
+          </form>
+        </div>
+
+      </section>
     </div>
   </main>
   <!--Main layout-->
   <!-- MDB -->
-  <script type="text/javascript" src="<?= base_url()?>assets/mdb/js/mdb.umd.min.js"></script>
+  <script type="text/javascript" src="<?= base_url() ?>assets/mdb/js/mdb.umd.min.js"></script>
   <!-- Custom scripts -->
-  <!-- <script type="text/javascript" src="<?= base_url()?>assets/mdb/js/admin.js"></script> -->
-  <script type="text/javascript" src="<?= base_url()?>assets/cdn_file/js/jquery.min.js"></script>
+  <!-- <script type="text/javascript" src="<?= base_url() ?>assets/mdb/js/admin.js"></script> -->
+  <script type="text/javascript" src="<?= base_url() ?>assets/cdn_file/js/jquery.min.js"></script>
+  <script type="text/javascript" src="<?= base_url() ?>assets/custom_file/js/scanner.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdn.datatables.net/2.2.2/js/dataTables.js"></script>
+  <script>
+    let scanning = false; // Flag to prevent multiple detections
+    var isMobile = /Mobi|Android/i.test(navigator.userAgent);
+    var base_url = "<?= base_url() ?>";
+    $('#borrowed-tools-table').DataTable();
+    document.getElementById("startButton").addEventListener("click", function() {
+      document.getElementById("startButton").style.display = "none";
+      document.getElementById("interactive").style.display = "block";
+      startScanner();
+    });
+
+    function startScanner() {
+      Quagga.init({
+        inputStream: {
+          name: "Live",
+          type: "LiveStream",
+          target: document.querySelector("#interactive"),
+          constraints: {
+            facingMode: "environment",
+            width: {
+              ideal: 1280
+            },
+            height: {
+              ideal: 720
+            }
+          }
+        },
+        decoder: {
+          readers: ["ean_reader", "code_128_reader", "upc_reader"]
+        }
+      }, function(err) {
+        if (err) {
+          console.error("Quagga initialization failed:", err);
+          return;
+        }
+        Quagga.start();
+        console.log("Quagga started successfully");
+      });
+
+      Quagga.onDetected(function(data) {
+        if (data && data.codeResult && data.codeResult.code) {
+          if (!scanning) {
+            scanning = true; // Prevent multiple detections
+            let scannedCode = data.codeResult.code;
+            console.log("Scanned Code:", scannedCode);
+            searchTool(scannedCode)
+            document.getElementById("result").innerText = "Scanned Code: " + scannedCode;
+            document.getElementById("startButton").style.display = "block";
+            document.getElementById("interactive").style.display = "none"; // Hide camera
+            Quagga.stop();
+            setTimeout(() => {
+              scanning = false; // Reset flag
+              Quagga.start(); // Restart scanning
+            }, 2000);
+          }
+        } else {
+          console.warn("No valid barcode detected");
+        }
+      });
+    }
+    $('.choose-list').on('click', function() {
+      var show = $(this).data('show');
+
+      $('.choose-list').removeClass('active');
+      $(this).addClass('active');
+      $('.borrowed-tools-list').hide();
+      $('#' + show + '_display').show();
+      if (show == 'card') {
+        $('#borrow-tools-filter').show();
+      } else {
+        $('#borrow-tools-filter').hide();
+      }
+
+    })
+    $(document).ready(function() {
+      $('#sidebarCollapse').on('click', function() {
+        $('#sidebar').toggleClass('active');
+      });
+
+      $('.list-group-item-action').on('click', function() {
+        $('.list-group-item-action').removeClass('active');
+        $(this).addClass('active');
+        var content = $(this).data('content');
+        $('.content-display').hide();
+        console.log(content);
+        $('#' + content).show();
+        if (isMobile === true) {
+          $('.navbar-toggler').click();
+        }
+
+      });
+
+
+      $('#tool_id').on('keyup', function() {
+        var scannedCode = $('#tool_id').val();
+        searcKey(scannedCode);
+      })
+      $('#category').on('change', function() {
+        var scannedCode = $('#category').val();
+        searcCategory(scannedCode);
+      })
+
+      $('.borrow-tool-class').on('click', function() {
+        var scannedCode = $(this).data('barcodeid');
+        var toolid = $(this).data('toolid');
+
+        Swal.fire({
+          title: "Are you sure?",
+          text: "You won't be able to revert this!",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes, borrow it!"
+        }).then((result) => {
+          if (result.isConfirmed) {
+            $.ajax({
+              url: base_url + "borrow-tool",
+              method: "POST",
+              data: {
+                barCode: scannedCode,
+                toolid: toolid
+              },
+              dataType: "json",
+              success: function(response) {
+                console.log(response);
+                if (response.code == 200) {
+                  Swal.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    text: response.message,
+                  }).then((result) => {
+                    if (result.isConfirmed) {
+                      // location.reload();
+                    }
+                  });
+                  $('.tool-' + scannedCode).removeClass('btn-info');
+                  $('.tool-' + scannedCode).addClass('btn-warning');
+                  $('.tool-' + scannedCode).text('FOR APPROVAL');
+                } else {
+                  Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: response.message,
+                  });
+                }
+              }
+            });
+          }
+        });
+      })
+
+    });
+    $(document).on('click', '.return-tool', function() {
+      var barcode = $(this).data('barcode');
+      var toolid = $(this).data('toolid');
+      var request_id = $(this).data('id');
+
+      Swal.fire({
+        title: "Are you sure?",
+        text: "Please confirm if you want to return!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, return it!"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          $.ajax({
+            url: base_url + "return-tool",
+            method: "POST",
+            data: {
+              barCode: barcode,
+              toolid: toolid,
+              request_id:request_id
+            },
+            dataType: "json",
+            success: function(response) {
+              Swal.fire({
+                title: "Tool has been returned!",
+                text: "page will be reloaded.",
+                icon: "success"
+              });
+
+            }
+          })
+        }
+      });
+    })
+    $(document).on('click', '#logout', function() {
+      Swal.fire({
+        title: "You want to logout?",
+        text: "Please confirm if you want to logout!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Logout!"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          location.href = base_url + "logout";
+        }
+      });
+    })
+
+    function searcCategory(scannedCode) {
+      var count = 0;
+      var search_input = $('#tool_id').val();
+      if (scannedCode === 'all') {
+        $('.tool-card-display').show();
+        $('#result_search').html('');
+      } else {
+        $('.tool-card-display').hide();
+        $.each($('.tool-card'), function(index, value) {
+          var catid = $(this).data('catid');
+          if (catid == scannedCode) {
+            $(this).parent().show();
+            count++;
+          }
+        });
+        $('#result_search').html(count + ' tools found');
+      }
+    }
+
+
+    function searcKey(scannedCode) {
+      var count = 0;
+      var selectedCategory = $('#category').val();
+      if (scannedCode == '' && selectedCategory == 'all') {
+        $('.tool-card-display').show();
+        $('#result_search').html('');
+      } else {
+        $('.tool-card-display').hide();
+        $.each($('.tool-card'), function(index, value) {
+          var category = $(this).data('category');
+          var toolname = $(this).data('toolname');
+          var barcode = $(this).data('barcode');
+          var catid = $(this).data('catid');
+
+          console.log(category, toolname, barcode, selectedCategory);
+          if (selectedCategory == 'all') {
+            if (category.toLowerCase().includes(scannedCode.toLowerCase()) || toolname.toLowerCase().includes(scannedCode.toLowerCase()) || barcode == scannedCode) {
+              $(this).parent().show();
+              count++;
+            }
+          } else {
+            if (catid == selectedCategory && (category.toLowerCase().includes(scannedCode.toLowerCase()) || toolname.toLowerCase().includes(scannedCode.toLowerCase()) || barcode == scannedCode)) {
+              $(this).parent().show();
+              count++;
+            }
+          }
+        })
+        $('#result_search').html(count + ' tools found');
+      }
+
+    }
+
+    function searchTool(scannedCode) {
+      var count = 0;
+      $('.tool-card-display').hide();
+      $.each($('.tool-card'), function(index, value) {
+        var barcode = $(this).data('barcode');
+        if (barcode == scannedCode) {
+          $(this).parent().show();
+          count++;
+        }
+      })
+      $('#result_search').html(count + ' tools found');
+    }
+  </script>
+
 
 
 </body>

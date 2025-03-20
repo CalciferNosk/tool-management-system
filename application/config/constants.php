@@ -87,4 +87,4 @@ defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest auto
 
 date_default_timezone_set('Asia/Manila');
 
-defined('BASE_URL')          ? null : define('BASE_URL', 'http://localhost/tool-management-system');
+defined('BASE_URL')          ? null : define('BASE_URL', 'https://192.168.100.31/tool-management-system');
